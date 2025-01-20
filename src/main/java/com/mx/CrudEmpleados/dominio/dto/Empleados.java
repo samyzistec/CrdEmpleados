@@ -1,4 +1,4 @@
-package com.mx.CrudEmpleados.dominio;
+package com.mx.CrudEmpleados.dominio.dto;
 
 import java.util.Date;
 

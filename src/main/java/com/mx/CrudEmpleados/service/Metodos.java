@@ -2,7 +2,7 @@ package com.mx.CrudEmpleados.service;
 
 import java.util.List;
 
-import com.mx.CrudEmpleados.dominio.Empleados;
+import com.mx.CrudEmpleados.dominio.dto.Empleados;
 
 public interface Metodos {
 	

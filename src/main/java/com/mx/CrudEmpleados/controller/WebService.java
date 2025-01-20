@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mx.CrudEmpleados.dominio.Empleados;
+import com.mx.CrudEmpleados.dominio.dto.Empleados;
+import com.mx.CrudEmpleados.dominio.exception.MiExcepcion;
 import com.mx.CrudEmpleados.service.Implementacion;
 
 @RestController // indica que es una web service de tipo REST
@@ -30,9 +31,13 @@ public class WebService {
 	 * data: json 
 	 * */	
 	@GetMapping(value="listar")
-	public List<Empleados> listar(){		
+	public List<Empleados> listar(){	
+		try{	
 		var lista = imp.listar();		
 		return lista;
+	}catch(Exception e ){
+		throw new MiExcepcion("Error de Servidor"+e.getMessage());
+	}
 		
 	}
 	
@@ -48,6 +53,7 @@ public class WebService {
 	@PostMapping(value="guardar")
 	public void guardar(@RequestBody Empleados emplado){				
 		imp.guardar(emplado);
+		throw new MiExcepcion("Error de Servidor");
 	}
 
 	/*
@@ -62,6 +68,7 @@ public class WebService {
 	@PostMapping(value="editar")
 	public void editar(@RequestBody Empleados emplado){				
 		imp.editar(emplado);
+		throw new MiExcepcion("Error de Servidor");
 	}
 	
 	/*
@@ -76,6 +83,7 @@ public class WebService {
 	@PostMapping(value="eliminar")
 	public void eliminar(@RequestBody Empleados emplado){				
 		imp.eliminar(emplado);
+		throw new MiExcepcion("Error de Servidor");
 	}
 	/*
 	 * Metodo: buscar
@@ -88,7 +96,11 @@ public class WebService {
 	 * */
 	@PostMapping(value="buscar")
 	public Empleados buscar(@RequestBody Empleados emplado){
-		return imp.buscar(emplado);				
+		try{
+		return imp.buscar(emplado);	
+		}catch(Exception e) {
+		throw new MiExcepcion("Error de Servidor"+e.getMessage());		
+		}	
 		
 	}
 	
