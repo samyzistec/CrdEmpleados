@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mx.CrudEmpleados.dao.EmpladosDao;
-import com.mx.CrudEmpleados.dominio.Empleados;
+import com.mx.CrudEmpleados.dominio.dto.Empleados;
+import com.mx.CrudEmpleados.dominio.exception.MiExcepcion;
 
 @Service // indica que esta clase representa la logica de una aplicacion
 public class Implementacion implements Metodos {
@@ -28,7 +29,7 @@ public class Implementacion implements Metodos {
 	@Override
 	public void guardar(Empleados empleado) {
 		// TODO Auto-generated method stub
-
+try{
 		for (Empleados e : dao.findAll()) {
 			if (e.getNombre().equalsIgnoreCase(empleado.getNombre())
 					&& e.getApp().equalsIgnoreCase(empleado.getApp())) {
@@ -38,6 +39,10 @@ public class Implementacion implements Metodos {
 				System.out.println("Se guardo el empleado");
 			}
 		}
+	}catch(Exception e){
+		throw new MiExcepcion("Error de compilacion");
+	}
+
 	}
 
 	@Override
@@ -45,6 +50,7 @@ public class Implementacion implements Metodos {
 		// TODO Auto-generated method stub
 		dao.save(empleado);
 		System.out.println("Se edito el empleado");
+		throw new MiExcepcion("Error de compilacion");
 
 	}
 
@@ -53,18 +59,27 @@ public class Implementacion implements Metodos {
 		// TODO Auto-generated method stub
 		dao.delete(empleado);
 		System.out.println("Se elimino el empleado");
+		throw new MiExcepcion("Error de compilacion");
 	}
 
 	@Override
 	public Empleados buscar(Empleados empleado) {
+		try{
 		Empleados emplBuscar = dao.findById(empleado.getId()).orElse(null);
 		return emplBuscar;
+		}catch(Exception e){
+		throw new MiExcepcion("Error de compilacion");
+		}
 	}
 
 	@Override
 	public List<Empleados> listar() {
 		// TODO Auto-generated method stub
+		try{
 		return (List<Empleados>) dao.findAll();
+		}catch(Exception e){
+			throw new MiExcepcion("Error de compilacion");
+		}
 	}
 
 }
